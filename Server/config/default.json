@@ -1,0 +1,11 @@
+{
+    "ENV": "local",
+    "dbConfig": {
+        "host": "localhost",
+        "port": 27017,
+        "user": "root",
+        "pwd": "root",
+        "schemaName": "rest-management",
+        "connectionLimit": 200
+    }
+}
