@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const OrderItemSchema = new Schema({
-    Name : {
+    name : {
         type : String,
         required : true,
         maxlength : 36
@@ -17,9 +17,6 @@ const OrderItemSchema = new Schema({
         required : true,
         default : "Veg",
         enum : ["Veg", "NonVeg"]
-    },
-    image : {
-        type : String,
     },
     rate : {
         type : Int16Array,
