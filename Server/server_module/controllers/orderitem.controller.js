@@ -1,4 +1,4 @@
-const orderitem = require('../modules/orderItem');
+const OrderItem = require('../modules/orderItem');
 const mongoose = require('mongoose');
 
 const router = require('express').Router();
@@ -24,13 +24,13 @@ class OrderItemController {
 
     // fetch all order items
      orderItemGetAllRecords(req, res) {
-        orderitem.find().select('name id foodtype rate description category')
+        OrderItem.find().select('name id foodtype rate description category')
             .exec()
             .then(docs => {
                 res.status(200).json(
                 {
                     count: docs.length,
-                    orderitem: docs.map(doc => {
+                    OrderItem: docs.map(doc => {
                         return {
                              name: doc.name,
                             id: doc.id,
@@ -38,11 +38,7 @@ class OrderItemController {
                             rate: doc.rate,
                             description: doc.description,
                             category: doc.category,
-                            request: 
-                            {
-                                type: 'GET',
-                                url: 'http://localhost:3000/v1/orderitem/'
-                            }
+                           
                         }
                     })
                 });
@@ -57,7 +53,7 @@ class OrderItemController {
 
      // Adding new orderiem to the database
      createOrderItem(req, res) {
-        const orderitem = new orderitem(
+        const orderitem = new OrderItem(
         {
             id: mongoose.Types.ObjectId(),
             name: req.body.name,
@@ -81,10 +77,7 @@ class OrderItemController {
                         rate: result.rate,
                         description: result.description,
                         category: result.category				                    },
-                    request: {
-                        type: 'GET',
-                        url: 'http://localhost:3000/v1/orderitem/' + result.id
-                    }
+                   
                 });
             })
             .catch(err => {
@@ -99,7 +92,7 @@ class OrderItemController {
     // Fetching all records from database with particular ID
     getOrderItemWithId(req, res) {
         const id = req.params.orderItemId;
-        user.findById(id)
+        OrderItem.findById(id)
             .select('name id foodtype rate description category')
             .exec()
             .then(doc => {
@@ -125,7 +118,7 @@ class OrderItemController {
 
     // Removing particular data from database
     deleteOrderItem(req, res) {
-        user.remove({ id: req.params.orderItemId })
+        OrderItem.remove({ id: req.params.orderItemId })
             .exec()
             .then(result => {
                 res.status(200).json(
