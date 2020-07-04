@@ -13,7 +13,7 @@ const mongoose = require("mongoose");
 // parses request body with desired format. currently we are using JSON.
 const bodyParser = require("body-parser");
 // import routes
-const router = require("./server_modules/router").create();
+const router = require("./server_module/router").create();
 //Declare Port
 const PORT = 3000;
 // config to read config from file and env.
@@ -36,7 +36,7 @@ class Server {
                 config.get("dbConfig").get("port") +
                 "/" +
                 config.get("dbConfig").get("schemaName");
-            // let uri = "mongodb+srv://rest1234:Rest1234@@cluster0-dfqcj.mongodb.net/rest-manage?retryWrites=true&w=majority";
+        //let uri = "mongodb+srv://rest1234:Rest@1234@restaurantmanagement-ta5nz.mongodb.net/rest-manage?retryWrites=true&w=majority";
             mongoose
                 .connect(uri, { useNewUrlParser: true })
                 .then(data => {

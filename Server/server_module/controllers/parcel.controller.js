@@ -1,4 +1,4 @@
-const User = require('../models/user');
+const user = require('../models/user');
 const mongoose = require('mongoose');
 const router = require('express').Router();
 
@@ -25,13 +25,13 @@ class UserController {
         }
         // Fetching all records from database
     userGetAllRecords(req, res) {
-        User.find().select('username firstName lastName email phone password status role home')
+        user.find().select('username firstName lastName email phone password role home')
             .exec()
             .then(docs => {
                 res.status(200).json(
                 {
                     count: docs.length,
-                        User: docs.map(doc => {
+                    user: docs.map(doc => {
                         return {
                             _id: doc._id,
                             username: doc.username,
@@ -41,8 +41,12 @@ class UserController {
                             phone: doc.phone,
                             password: doc.password,
                             role: doc.role,
-                            status: doc.status,
-                            home: doc.home							                          
+                            home: doc.home							
+                            request: 
+                            {
+                                type: 'GET',
+                                url: 'http://localhost:3000/v1/user/'
+                            }
                         }
                     })
                 });
@@ -57,7 +61,7 @@ class UserController {
 
     // Adding new user to the database
     createUser(req, res) {
-        const user = new User(
+        const user = new user(
         {
             _id: mongoose.Types.ObjectId(),
             username: req.body.username, 
@@ -66,8 +70,7 @@ class UserController {
 			email: req.body.email,
 			phone: req.body.phone,
 			password: req.body.password,
-            role: req.body.role,
-            status: req.body.status,
+			role: req.body.role,
 			home: req.body.home									
 			
         });
@@ -86,9 +89,12 @@ class UserController {
 						email: result.email,						
 						phone: result.phone,						
 						password: result.password,						
-                        role: result.role,
-                        status: result.status,
-						home: result.home				                    },                  
+						role: result.role,						
+						home: result.home				                    },
+                    request: {
+                        type: 'GET',
+                        url: 'http://localhost:3000/v1/user/' + result._id
+                    }
                 });
             })
             .catch(err => {
@@ -103,8 +109,8 @@ class UserController {
     // Fetching all records from database with particular ID
     getUserWithId(req, res) {
         const id = req.params.userId;
-        User.findById(id)
-            .select(' _id username firstName lastName email phone password role status home')
+        user.findById(id)
+            .select(' _id username firstName lastName email phone password role home')
             .exec()
             .then(doc => {
                 console.log("From database", doc);
@@ -129,7 +135,7 @@ class UserController {
 
     // Removing particular data from database
     deleteUser(req, res) {
-        User.remove({ _id: req.params.userId })
+        user.remove({ _id: req.params.userId })
             .exec()
             .then(result => {
                 res.status(200).json(
