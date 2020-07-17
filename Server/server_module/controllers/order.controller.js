@@ -1,4 +1,4 @@
-const order = require('../modules/order');
+const Order = require('../modules/order');
 const mongoose = require('mongoose');
 
 const router = require('express').Router();
@@ -24,13 +24,13 @@ class OrderController {
 
     // fetch all orders
      orderGetAllRecords(req, res) {
-        order.find().select('orderId status custName custPhno tableNo totalPrice quantity orderItemId')
+        Order.find().select('orderId status custName custPhno tableNo totalPrice quantity orderItemId')
             .exec()
             .then(docs => {
                 res.status(200).json(
                 {
                     count: docs.length,
-                    orderitem: docs.map(doc => {
+                    Order: docs.map(doc => {
                         return {
                              orderId: doc.orderId,
                             status: doc.status,
@@ -40,11 +40,6 @@ class OrderController {
                             totalPrice: doc.totalPrice,
                             quantity: doc.quantity,
                             orderItemId: doc.orderItemId,
-                            request: 
-                            {
-                                type: 'GET',
-                                url: 'http://localhost:3000/v1/order/'
-                            }
                         }
                     })
                 });
@@ -59,7 +54,7 @@ class OrderController {
 
      // Adding new order to the database
      createOrder(req, res) {
-        const order = new order(
+        const order = new Order(
         {
             orderId: mongoose.Types.ObjectId(),
             status: req.body.status,
@@ -87,10 +82,7 @@ class OrderController {
                         totalPrice: result.totalPrice,
                         quantity: result.quantity,
                         orderItemId: result.orderItemId				                    },
-                    request: {
-                        type: 'GET',
-                        url: 'http://localhost:3000/v1/order/' + result.orderId
-                    }
+    
                 });
             })
             .catch(err => {
@@ -105,7 +97,7 @@ class OrderController {
     // Fetching all records from database with particular ID
     getOrderWithId(req, res) {
         const id = req.params.orderId;
-        user.findById(id)
+        Order.findById(id)
             .select('orderId status custName custPhno tableNo totalPrice quantity orderItemId')
             .exec()
             .then(doc => {
@@ -131,7 +123,7 @@ class OrderController {
 
     // Removing particular data from database
     deleteOrder(req, res) {
-        user.remove({ id: req.params.orderId })
+        Order.remove({ id: req.params.orderId })
             .exec()
             .then(result => {
                 res.status(200).json(
