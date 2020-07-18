@@ -3,8 +3,8 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { UserLoginComponent } from './user-login/user-login/user-login.component';
-import { OrderDashboardComponent } from './order-dashboard/order-dashboard/order-dashboard.component';
+import { UserLoginComponent } from './user-login/user-login.component';
+import { OrderDashboardComponent } from './order-dashboard/order-dashboard.component';
 import { HomeComponent } from './home/home.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { ViewProductsComponent } from './view-products/view-products.component';
