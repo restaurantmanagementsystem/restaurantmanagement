@@ -1,0 +1,15 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\Client",
+    "\\Client\\restaurantmanagement",
+    "\\Client\\restaurantmanagement\\node_modules",
+    "\\Client\\restaurantmanagement\\node_modules\\jquery",
+    "\\Client\\restaurantmanagement\\node_modules\\jquery\\dist",
+    "\\Client\\restaurantmanagement\\src",
+    "\\Client\\restaurantmanagement\\src\\app",
+    "\\Client\\restaurantmanagement\\src\\app\\home"
+  ],
+  "SelectedNode": "\\Client\\restaurantmanagement\\src\\index.html",
+  "PreviewInSolutionExplorer": false
+}

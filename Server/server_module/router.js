@@ -1,10 +1,13 @@
 const userController = require("./controllers/user.controller").create();
+const FoodItemController = require("./controllers/fooditem.controller").create();
 
 class Routes {
     constructor() { }
 
     initializeRoutes(app) {
-        app.use('/api/v1/user', userController.getRouter());       
+        app.use('/api/v1/user', userController.getRouter());    
+        app.use('/api/v1/fooditem', userController.getRouter());       
+
     }
 }
 

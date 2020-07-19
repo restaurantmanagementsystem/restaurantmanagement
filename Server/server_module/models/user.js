@@ -8,9 +8,9 @@ const user = mongoose.Schema({
     email: { type: String, required: true },
 	phone: { type: String, required: false },
     password: { type: String, required: true },
-    status: { type: String, required: true },
-    role: { type: String, required: true },
-    home: { type: String, required: true }
+    status: { type: String, required: true, default: 'Active' },
+    role: { type: String, required: true, default: 'Admin' },
+    home: { type: String, required: true, default: '/admin-login'  }
     
 });
 user.pre('save', () => {

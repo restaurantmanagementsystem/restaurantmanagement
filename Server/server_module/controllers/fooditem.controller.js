@@ -1,36 +1,36 @@
-const OrderItem = require('../modules/orderItem');
+const foodItem = require('../models/foodItem');
 const mongoose = require('mongoose');
 
 const router = require('express').Router();
 
-class OrderItemController {
+class FoodItemController {
     constructor(){
         router.get('/', (req, res) => {
-            this.orderItemGetAllRecords(req, res);
+            this.foodItemGetAllRecords(req, res);
         });
 
-        router.get('/:orderItemId', (req, res) => {
-            this.getOrderItemWithId(req, res);
+        router.get('/:foodItemId', (req, res) => {
+            this.getfoodItemWithId(req, res);
         });
 
         router.post('/', (req, res) => {
-            this.createOrderItem(req, res);
+            this.createfoodItem(req, res);
         });
 
-        router.delete('/:orderItemId', (req, res) => {
-            this.deleteOrderItem(req, res);
+        router.delete('/:foodItemId', (req, res) => {
+            this.deletefoodItem(req, res);
         });
     }
 
-    // fetch all order items
-     orderItemGetAllRecords(req, res) {
-        OrderItem.find().select('name id foodtype rate description category')
+    // fetch all food items
+     foodItemGetAllRecords(req, res) {
+         FoodItem.find().select('name id foodtype rate description category')
             .exec()
             .then(docs => {
                 res.status(200).json(
                 {
                     count: docs.length,
-                    OrderItem: docs.map(doc => {
+                    FoodItem: docs.map(doc => {
                         return {
                              name: doc.name,
                             id: doc.id,
@@ -51,9 +51,9 @@ class OrderItemController {
             })
     }
 
-     // Adding new orderiem to the database
-     createOrderItem(req, res) {
-        const orderitem = new OrderItem(
+     // Adding new foodiem to the database
+     createfoodItem(req, res) {
+         const FoodItem = new FoodItem(
         {
             id: mongoose.Types.ObjectId(),
             name: req.body.name,
@@ -63,14 +63,14 @@ class OrderItemController {
             category: req.body.category								
 			
         });
-        orderitem
+        fooditem
             .save()
             .then(result => {
                 console.log(result);
                 res.status(201).json(
                 {
-                    message: 'orderitem stored',
-                    createdorderitem: {
+                    message: 'fooditem stored',
+                    createdfooditem: {
                         name: result.name,
                         id: result.id,
                         foodtype: result.foodtype,
@@ -90,9 +90,9 @@ class OrderItemController {
     }
 
     // Fetching all records from database with particular ID
-    getOrderItemWithId(req, res) {
-        const id = req.params.orderItemId;
-        OrderItem.findById(id)
+    getfoodItemWithId(req, res) {
+        const id = req.params.foodItemId;
+        FoodItem.findById(id)
             .select('name id foodtype rate description category')
             .exec()
             .then(doc => {
@@ -100,10 +100,10 @@ class OrderItemController {
                 if (doc) {
                     res.status(200).json(
                     {
-                        orderitem: doc,
+                        fooditem: doc,
                         request: {
                             type: 'GET',
-                            url: 'http://localhost:3000/v1/orderitem/'
+                            url: 'http://localhost:3000/v1/fooditem/'
                         }
                     });
                 } else {
@@ -117,16 +117,16 @@ class OrderItemController {
     }
 
     // Removing particular data from database
-    deleteOrderItem(req, res) {
-        OrderItem.remove({ id: req.params.orderItemId })
+    deletefoodItem(req, res) {
+        FoodItem.remove({ id: req.params.foodItemId })
             .exec()
             .then(result => {
                 res.status(200).json(
                 {
-                    message: 'orderitem  Deleted',
+                    message: 'fooditem  Deleted',
                     request: {
                         type: 'POST',
-                        url: 'http://localhost:3000/v1/orderitem/',
+                        url: 'http://localhost:3000/v1/fooditem/',
                         body: { name: 'String', code: 'String' }
                     }
                 })
@@ -147,9 +147,9 @@ class OrderItemController {
 //Function which returns single object for all methods
 let self = module.exports = {
     create: () => {
-        if (!(self && self.createOrderItemController)) {
-            self.createOrderItemController = new OrderItemController();
+        if (!(self && self.createfoodItemController)) {
+            self.createfoodItemController = new FoodItemController();
         }
-        return self.createOrderItemController;
+        return self.createfoodItemController;
     }
 }
