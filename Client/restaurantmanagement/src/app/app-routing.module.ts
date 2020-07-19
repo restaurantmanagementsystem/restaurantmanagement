@@ -5,7 +5,7 @@ import { AddUsersComponent } from './admin-support/add-users/add-users.component
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'add-user', component: AddUsersComponent }
+  { path: 'adduser', component: AddUsersComponent }
 
 ];
 
