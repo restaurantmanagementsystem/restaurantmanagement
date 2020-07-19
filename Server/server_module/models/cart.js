@@ -28,7 +28,7 @@ class Cart {
                 this.calculateTotals(cart);
             }
         }
-
+//
     }
 
     static updateCart(ids = [], qtys = [], cart) {
