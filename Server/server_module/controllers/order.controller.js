@@ -9,7 +9,7 @@ class OrderController {
             this.orderGetAllRecords(req, res);
         });
 
-        router.get('/:orderItemId', (req, res) => {
+        router.get('/:orderId', (req, res) => {
             this.getOrderWithId(req, res);
         });
 
@@ -17,7 +17,7 @@ class OrderController {
             this.createOrder(req, res);
         });
 
-        router.delete('/:orderItemId', (req, res) => {
+        router.delete('/:orderId', (req, res) => {
             this.deleteOrder(req, res);
         });
     }

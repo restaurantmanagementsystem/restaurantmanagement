@@ -2,16 +2,14 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const OrderItemSchema = new Schema({
+   
+    _id: mongoose.Schema.Types.ObjectId,
     name : {
         type : String,
         required : true,
         maxlength : 36
     },
-    id : {
-        type : Int16Array,
-        autoincrement : true,
-        unique : true
-    },
+    
     foodtype : {
         type : String,
         required : true,
@@ -19,7 +17,7 @@ const OrderItemSchema = new Schema({
         enum : ["Veg", "NonVeg"]
     },
     rate : {
-        type : Int16Array,
+        type : Number,
         required : true
     },
     description : String,

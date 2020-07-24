@@ -9,7 +9,7 @@ const user = mongoose.Schema({
 	phone: { type: String, required: false },
     password: { type: String, required: true },
     status: { type: String, required: true },
-    role: { type: String, required: true },
+    role: { type: String, required: true, enum : ["chef", "admin", "manager", "waiter"] },
     home: { type: String, required: true }
     
 });
