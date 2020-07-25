@@ -1,5 +1,6 @@
 const User = require('../models/user');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
 
 class LoginController {
@@ -23,6 +24,11 @@ class LoginController {
     if(!validPass)
     return res.status(400).send('Invalid Password');
 
+    //creating token
+    TOKEN_SECRET=lkdsjffoeinafa;
+    const token = jwt.sign({_id : User._id}, TOKEN_SECRET);
+    res.header('auth-token', token).send(token);
+    
         if((req.body.role).equals(admin))
         res.send('logged in Admin');
     
