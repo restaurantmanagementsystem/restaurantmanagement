@@ -1,23 +1,27 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+
 const foodItem = new Schema({
+
+   
     _id: mongoose.Schema.Types.ObjectId,
     name : {
         type : String,
         required : true,
         maxlength : 36
-    },    
-    foodType : {
+   
         type : String,
         required : true,
         default : "Veg",
         enum : ["Veg", "NonVeg"]
     },
     rate : {
+
         type : Number,
         required : true
     },
+
     description: {
         type: String,
         required: true

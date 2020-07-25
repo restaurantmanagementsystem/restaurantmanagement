@@ -1,24 +1,25 @@
 const User = require('../models/user');
 const mongoose = require('mongoose');
 const router = require('express').Router();
+const bcrypt = require('bcryptjs');
 
 class UserController {
 
     constructor() {
 
-            router.get('/', (req, res) => {
+            router.get('/', async (req, res) => {
                 this.userGetAllRecords(req, res);
             });
 
-            router.get('/:userId', (req, res) => {
+            router.get('/:userId', async (req, res) => {
                 this.getUserWithId(req, res);
             });
 
-            router.post('/', (req, res) => {
+            router.post('/', async (req, res) => {
                 this.createUser(req, res);
             });
 
-            router.delete('/:userId', (req, res) => {
+            router.delete('/:userId', async (req, res) => {
                 this.deleteUser(req, res);
             });
 
@@ -57,6 +58,16 @@ class UserController {
 
     // Adding new user to the database
     createUser(req, res) {
+
+        //Checkif user exists or not.
+        const userExists = await User.findOne({email: req.body.email});
+        if (userExists)
+            return res.status(400).send('User email already exists');
+
+        //Hashing Password
+        const salt = await bcrypt.gentSalt(10);
+        const hashedPassword = await bcrypt.hash(req.body.password, salt);
+
         const user = new User(
         {
             _id: mongoose.Types.ObjectId(),
@@ -65,7 +76,7 @@ class UserController {
 			lastName: req.body.lastName,
 			email: req.body.email,
 			phone: req.body.phone,
-			password: req.body.password,
+			password: hashedPassword,
             role: req.body.role,
             status: req.body.status,
 			home: req.body.home									

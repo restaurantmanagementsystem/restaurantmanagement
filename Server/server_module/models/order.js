@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const OrderSchema = new Schema({
+const order = new Schema({
+    _id: mongoose.Schema.Types.ObjectId,
     orderId : {
-        type : Int16Array,
+        type : Number,
         required : true,
         autoincrement : true
     },
@@ -17,14 +18,14 @@ const OrderSchema = new Schema({
         type : String,
         required : true
     },
-    custPhno : Int16Array,
-    tableNo : Int16Array,
+    custPhno : String,
+    tableNo : String,
     totalPrice : {
-        type : Int16Array,
+        type : Number,
         required : true
     },
     quantity : {
-        type : Int16Array,
+        type : Number,
         required : true
     },
     orderItemId : {
@@ -37,4 +38,15 @@ const OrderSchema = new Schema({
     }
 });
 
-module.exports = mongoose.model('Order', OrderSchema);
+order.pre('save', () => {
+    let now = new Date();
+    if (!this.isNew) {
+        this.createdAt = now;
+        this.createdBy = 'admin';
+    }
+    this.modifiedAt = now;
+    this.modifiedBy = 'admin';
+});
+
+
+module.exports = mongoose.model('Order', order);
