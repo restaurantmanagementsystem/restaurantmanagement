@@ -6,18 +6,18 @@ const foodItem = new Schema({
 
    
     _id: mongoose.Schema.Types.ObjectId,
-    name : {
-        type : String,
-        required : true,
-        maxlength : 36
-   
-        type : String,
+    name: {
+        type: String,
+        required: true,
+        maxlength: 36
+    },
+    type: {
+        type: String,
         required : true,
         default : "Veg",
         enum : ["Veg", "NonVeg"]
     },
     rate : {
-
         type : Number,
         required : true
     },

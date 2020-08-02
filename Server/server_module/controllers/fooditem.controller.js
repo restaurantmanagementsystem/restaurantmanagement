@@ -1,10 +1,10 @@
-const foodItem = require('../models/foodItem');
+const FoodItem = require('../models/foodItem');
 const mongoose = require('mongoose');
 
 const router = require('express').Router();
 
 class FoodItemController {
-    constructor(){
+    constructor() {
         router.get('/', (req, res) => {
             this.foodItemGetAllRecords(req, res);
         });
@@ -23,69 +23,70 @@ class FoodItemController {
     }
 
     // fetch all food items
-     foodItemGetAllRecords(req, res) {
-         FoodItem.find().select('name id foodtype rate description category')
+    foodItemGetAllRecords(req, res) {
+        FoodItem.find().select('name id foodtype rate description category')
             .exec()
             .then(docs => {
                 res.status(200).json(
-                {
-                    count: docs.length,
-                    FoodItem: docs.map(doc => {
-                        return {
-                             name: doc.name,
-                            id: doc.id,
-                            foodtype: doc.foodtype,
-                            rate: doc.rate,
-                            description: doc.description,
-                            category: doc.category,
-                           
-                        }
-                    })
-                });
+                    {
+                        count: docs.length,
+                        FoodItem: docs.map(doc => {
+                            return {
+                                name: doc.name,
+                                id: doc.id,
+                                foodtype: doc.foodtype,
+                                rate: doc.rate,
+                                description: doc.description,
+                                category: doc.category,
+
+                            }
+                        })
+                    });
             })
             .catch(err => {
                 res.status(500).json(
-                {
-                    error: err
-                });
+                    {
+                        error: err
+                    });
             })
     }
 
-     // Adding new foodiem to the database
-     createfoodItem(req, res) {
-         const FoodItem = new FoodItem(
-        {
-            id: mongoose.Types.ObjectId(),
-            name: req.body.name,
-            foodtype: req.body.foodtype,
-            rate: req.body.rate,
-            description: req.body.description,
-            category: req.body.category								
-			
-        });
+    // Adding new foodiem to the database
+    createfoodItem(req, res) {
+        const FoodItem = new FoodItem(
+            {
+                id: mongoose.Types.ObjectId(),
+                name: req.body.name,
+                foodtype: req.body.foodtype,
+                rate: req.body.rate,
+                description: req.body.description,
+                category: req.body.category
+
+            });
         fooditem
             .save()
             .then(result => {
                 console.log(result);
                 res.status(201).json(
-                {
-                    message: 'fooditem stored',
-                    createdfooditem: {
-                        name: result.name,
-                        id: result.id,
-                        foodtype: result.foodtype,
-                        rate: result.rate,
-                        description: result.description,
-                        category: result.category				                    },
-                   
-                });
+                    {
+                        message: 'fooditem stored',
+                        createdfooditem: {
+                            name: result.name,
+                            id: result.id,
+                            foodtype: result.foodtype,
+                            rate: result.rate,
+                            description: result.description,
+                            category: result.category
+                        },
+
+                    });
             })
             .catch(err => {
                 console.log(err);
                 res.status(500).json(
-                {
-                    error: err
-                });
+                    {
+                        error: err
+                    });
             });
     }
 
@@ -99,13 +100,13 @@ class FoodItemController {
                 console.log("From database", doc);
                 if (doc) {
                     res.status(200).json(
-                    {
-                        fooditem: doc,
-                        request: {
-                            type: 'GET',
-                            url: 'http://localhost:3000/v1/fooditem/'
-                        }
-                    });
+                        {
+                            fooditem: doc,
+                            request: {
+                                type: 'GET',
+                                url: 'http://localhost:3000/v1/fooditem/'
+                            }
+                        });
                 } else {
                     res.status(404).json({ message: 'No Valid entry found for provided ID' })
                 }
@@ -122,20 +123,20 @@ class FoodItemController {
             .exec()
             .then(result => {
                 res.status(200).json(
-                {
-                    message: 'fooditem  Deleted',
-                    request: {
-                        type: 'POST',
-                        url: 'http://localhost:3000/v1/fooditem/',
-                        body: { name: 'String', code: 'String' }
-                    }
-                })
+                    {
+                        message: 'fooditem  Deleted',
+                        request: {
+                            type: 'POST',
+                            url: 'http://localhost:3000/v1/fooditem/',
+                            body: { name: 'String', code: 'String' }
+                        }
+                    })
             })
             .catch(err => {
                 res.status(500).json(
-                {
-                    error: err
-                });
+                    {
+                        error: err
+                    });
             });
     }
 
