@@ -60,13 +60,13 @@ class UserController {
     createUser(req, res) {
 
         //Checkif user exists or not.
-        const userExists = await User.findOne({email: req.body.email});
+        const userExists =  User.findOne({email: req.body.email});
         if (userExists)
             return res.status(400).send('User email already exists');
 
         //Hashing Password
-        const salt = await bcrypt.gentSalt(10);
-        const hashedPassword = await bcrypt.hash(req.body.password, salt);
+        const salt =  bcrypt.gentSalt(10);
+        const hashedPassword =  bcrypt.hash(req.body.password, salt);
 
         const user = new User(
         {

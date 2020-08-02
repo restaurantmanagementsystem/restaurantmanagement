@@ -13,7 +13,7 @@ const mongoose = require("mongoose");
 // parses request body with desired format. currently we are using JSON.
 const bodyParser = require("body-parser");
 // import routes
-const router = require("./server_module/routes/router").create();
+const router = require("./server_module/router").create();
 //Declare Port
 const PORT = 3000;
 // config to read config from file and env.
