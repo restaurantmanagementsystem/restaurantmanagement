@@ -6,11 +6,12 @@
     "\\Client\\restaurantmanagement\\src",
     "\\Client\\restaurantmanagement\\src\\app",
     "\\Client\\restaurantmanagement\\src\\app\\admin-support",
-    "\\Client\\restaurantmanagement\\src\\app\\admin-support\\add-product",
-    "\\Client\\restaurantmanagement\\src\\app\\admin-support\\add-users",
-    "\\Client\\restaurantmanagement\\src\\app\\models",
-    "\\Server"
+    "\\Client\\restaurantmanagement\\src\\app\\services",
+    "\\Server",
+    "\\Server\\server_module",
+    "\\Server\\server_module\\controllers",
+    "\\Server\\server_module\\models"
   ],
-  "SelectedNode": "\\Client\\restaurantmanagement\\src\\app\\admin-support\\add-users\\add-users.component.ts",
+  "SelectedNode": "\\Client\\restaurantmanagement\\src\\app\\admin-support\\add-product\\add-product.component.ts",
   "PreviewInSolutionExplorer": false
 }

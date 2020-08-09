@@ -60,55 +60,60 @@ class UserController {
     createUser(req, res) {
 
         //Checkif user exists or not.
-        const userExists =  User.findOne({email: req.body.email});
-        if (userExists)
-            return res.status(400).send('User email already exists');
+    
+        User.findOne({ email: req.body.email }, function (err, doc) {
+            if (doc) {
+                return res.status(400).send('User email already exists');
+            } else {
+                const user = new User(
+                    {
+                        _id: mongoose.Types.ObjectId(),
+                        username: req.body.username,
+                        firstName: req.body.firstName,
+                        lastName: req.body.lastName,
+                        email: req.body.email,
+                        phone: req.body.phone,
+                        password: req.body.password,
+                        role: req.body.role,
+                        status: req.body.status,
+                        home: req.body.home
 
-        //Hashing Password
-        const salt =  bcrypt.gentSalt(10);
-        const hashedPassword =  bcrypt.hash(req.body.password, salt);
-
-        const user = new User(
-        {
-            _id: mongoose.Types.ObjectId(),
-            username: req.body.username, 
-            firstName: req.body.firstName, 
-			lastName: req.body.lastName,
-			email: req.body.email,
-			phone: req.body.phone,
-			password: hashedPassword,
-            role: req.body.role,
-            status: req.body.status,
-			home: req.body.home									
-			
+                    });
+                user
+                    .save()
+                    .then(result => {
+                        console.log(result);
+                        res.status(201).json(
+                            {
+                                message: 'User stored',
+                                createduser: {
+                                    _id: result._id,
+                                    username: result.username,
+                                    firstName: result.firstName,
+                                    lastName: result.lastName,
+                                    email: result.email,
+                                    phone: result.phone,
+                                    password: result.password,
+                                    role: result.role,
+                                    status: result.status,
+                                    home: result.home
+                                },
+                            });
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        res.status(500).json(
+                            {
+                                error: err
+                            });
+                    });
+            }
         });
-        user
-            .save()
-            .then(result => {
-                console.log(result);
-                res.status(201).json(
-                {
-                    message: 'User stored',
-                    createduser: {
-                        _id: result._id,                 
-						username: result.username, 						
-						firstName: result.firstName, 						
-						lastName: result.lastName,						
-						email: result.email,						
-						phone: result.phone,						
-						password: result.password,						
-                        role: result.role,
-                        status: result.status,
-						home: result.home				                    },                  
-                });
-            })
-            .catch(err => {
-                console.log(err);
-                res.status(500).json(
-                {
-                    error: err
-                });
-            });
+        //Hashing Password
+        //const salt =  bcrypt.gentSalt(10);
+        //const hashedPassword =  bcrypt.hash(req.body.password, salt);
+
+        
     }
 
     // Fetching all records from database with particular ID
