@@ -2,7 +2,7 @@
   <div class=" " style="display: block">
     <h5 class="card-header">User Details</h5>
     <div class="card-body">
-      <form class="login100-form validate-form p-l-55 p-r-55 p-t-20 " [formGroup]="myForm" (ngSubmit)="onSubmitRegistration()">
+      <form class="login100-form validate-form p-l-55 p-r-55 p-t-20 " [formGroup]="myForm" >
         <div class="form-row">
           <div class="col-sm-1">
           </div>
@@ -82,7 +82,7 @@
               </div>
             </div>           
             <div class="text-center">
-              <button class="btn btn-primary mr-1" type="submit" [disabled]="!myForm.valid">Update</button>
+              <button class="btn btn-primary mr-1" type="submit" [disabled]="!myForm.valid" (click)="addUser()">Update</button>
               <button class="btn btn-secondary" type="reset">Cancel</button>
             </div>
           </div>

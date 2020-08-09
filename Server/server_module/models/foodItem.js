@@ -1,10 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-
-const foodItem = new Schema({
-
-   
+const foodItem = new Schema({   
     _id: mongoose.Schema.Types.ObjectId,
     name: {
         type: String,
@@ -21,7 +18,6 @@ const foodItem = new Schema({
         type : Number,
         required : true
     },
-
     description: {
         type: String,
         required: true

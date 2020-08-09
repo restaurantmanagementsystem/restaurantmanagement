@@ -34,7 +34,7 @@ export class AddUsersComponent implements OnInit {
   }
 
 
-  onSubmitRegistration() {
+  addUser() {
     let firstName = this.myForm.get("firstName").value;
     let lastName = this.myForm.get("lastName").value;
     let username = this.myForm.get("username").value;

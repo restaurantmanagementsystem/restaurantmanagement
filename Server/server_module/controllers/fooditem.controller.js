@@ -53,9 +53,9 @@ class FoodItemController {
 
     // Adding new foodiem to the database
     createfoodItem(req, res) {
-        const FoodItem = new FoodItem(
+        const fooditem = new FoodItem(
             {
-                id: mongoose.Types.ObjectId(),
+                _id: mongoose.Types.ObjectId(),
                 name: req.body.name,
                 foodtype: req.body.foodtype,
                 rate: req.body.rate,
@@ -72,7 +72,7 @@ class FoodItemController {
                         message: 'fooditem stored',
                         createdfooditem: {
                             name: result.name,
-                            id: result.id,
+                            _id: result._id,
                             foodtype: result.foodtype,
                             rate: result.rate,
                             description: result.description,
@@ -126,7 +126,7 @@ class FoodItemController {
                     {
                         message: 'fooditem  Deleted',
                         request: {
-                            type: 'POST',
+                            type: 'Delete',
                             url: 'http://localhost:3000/v1/fooditem/',
                             body: { name: 'String', code: 'String' }
                         }

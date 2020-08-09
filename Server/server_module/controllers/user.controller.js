@@ -147,7 +147,7 @@ class UserController {
                 {
                     message: 'user  Deleted',
                     request: {
-                        type: 'POST',
+                        type: 'Delete',
                         url: 'http://localhost:3000/v1/user/',
                         body: { name: 'String', code: 'String' }
                     }

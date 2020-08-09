@@ -1,1 +1,72 @@
-<p>add-product works!</p>
+<div class="container">
+  <div class=" " style="display: block">
+    <h5 class="card-header">Food Item  Details</h5>
+    <div class="card-body">
+      <form class="login100-form validate-form p-l-55 p-r-55 p-t-20 " [formGroup]="myForm"  (ngSubmit)="addItem()">
+        <div class="form-row">
+          <div class="col-sm-1">
+          </div>
+          <div class="col-sm-10">
+            <div class="form-group ">
+              <label>Food Item Name </label>
+              <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
+              <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                <div *ngIf="f.name.errors.required">Food Item Name is required</div>
+                <div *ngIf="f.name.errors.name">Food Item Name must be a valid</div>
+              </div>
+            </div>
+            <div class="form-group ">
+              <label>Rate </label>
+              <input type="number" formControlName="rate" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.rate.errors }" />
+              <div *ngIf="submitted && f.rate.errors" class="invalid-feedback">
+                <div *ngIf="f.rate.errors.required">rate is required</div>
+                <div *ngIf="f.rate.errors.rate">rate must be a valid</div>
+              </div>
+            </div>
+            <div class="form-group ">
+              <label>Description </label>
+              <input type="text" formControlName="description" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.description.errors }" />
+              <div *ngIf=" submitted &&f.description.errors" class="invalid-feedback">
+                <div *ngIf="f.description.errors.required">description is required</div>
+                <div *ngIf="f.description.errors.description">description must be a valid</div>
+              </div>
+            </div>
+            <div class="form-group ">
+              <label>Type</label>
+              <select class="form-control"
+                      formControlName="type"
+                      [ngClass]="{ 'is-invalid': submitted && f.type.errors }">
+                <option value="" disabled>type</option>
+                <option *ngFor="let types of types"> {{types}} </option>
+              </select>
+              <div *ngIf=" submitted &&f.type.errors" class="invalid-feedback">
+                <div *ngIf="f.type.errors.required">type is required</div>
+                <div *ngIf="f.type.errors.type">type must be a valid </div>
+              </div>
+            </div>
+            
+            <div class="form-group ">
+              <label>Category</label>
+              <select class="form-control"
+                      formControlName="category"
+                      [ngClass]="{ 'is-invalid':submitted && f.category.errors }">
+                <option value="" disabled>category</option>
+                <option *ngFor="let categories of categories"> {{categories}} </option>
+              </select>
+              <div *ngIf="submitted && f.category.errors" class="invalid-feedback">
+                <div *ngIf="f.category.errors.required">category is required</div>
+                <div *ngIf="f.category.errors.category">category must be a valid </div>
+              </div>
+            </div>
+            <div class="text-center">
+              <button class="btn btn-primary mr-1" type="submit">Update</button>
+              <button class="btn btn-secondary" type="reset" (click)="onReset()" >Cancel</button>
+            </div>
+          </div>
+          <div class="col-sm-1">
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
