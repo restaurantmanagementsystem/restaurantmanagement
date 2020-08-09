@@ -45,12 +45,8 @@ export class AddProductComponent implements OnInit {
     let requestData = new Product(name, type, rate, description, category);
 
     this.appService.addFoodItem(requestData).subscribe(
-      (resp: any) => {
-        this.myForm.controls.name.setValue("");
-        this.myForm.controls.rate.setValue(0);        
-        this.myForm.controls.type.setValue(" ");
-        this.myForm.controls.description.setValue("");
-        this.myForm.controls.category.setValue(" ");
+      (resp: any) => {           
+       
       },
       error => {
 
@@ -58,7 +54,9 @@ export class AddProductComponent implements OnInit {
     );
   }
   onReset() {
-    this.submitted = false;   
+    this.submitted = false;
+    this.myForm.controls.type.setValue(" ");
+    this.myForm.controls.category.setValue(" ");
     this.myForm.reset();
   }
 
