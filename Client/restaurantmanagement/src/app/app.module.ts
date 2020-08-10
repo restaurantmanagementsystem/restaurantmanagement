@@ -14,6 +14,8 @@ import { AdminLoginComponent } from './admin-support/admin-login/admin-login.com
 import { ProductCartComponent } from './product-cart/product-cart.component';
 import { NotFoundErrorComponent } from './not-found-error/not-found-error.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AdminHomeComponent } from './admin-support/admin-home/admin-home.component';
+import { AdminDashboardComponent } from './admin-support/admin-dashboard/admin-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     AddUsersComponent,
     AdminLoginComponent,
     ProductCartComponent,
-    NotFoundErrorComponent
+    NotFoundErrorComponent,
+    AdminHomeComponent,
+    AdminDashboardComponent
   ],
   imports: [FormsModule, ReactiveFormsModule,
     HttpClientModule,

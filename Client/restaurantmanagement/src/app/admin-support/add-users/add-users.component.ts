@@ -14,6 +14,7 @@ export class AddUsersComponent implements OnInit {
   myForm: FormGroup;
   roles: string[] = ["Admin", "Cheif", "Manager", "Waiter"];
   statues: string[] = ["Active", "InActive"]
+  submitted: boolean;
 
   constructor(AppService: AppService, private formBuilder: FormBuilder) {
     this.appService = AppService;
@@ -35,6 +36,10 @@ export class AddUsersComponent implements OnInit {
 
 
   addUser() {
+    this.submitted = true;
+    if (this.myForm.invalid) {
+      return;
+    }
     let firstName = this.myForm.get("firstName").value;
     let lastName = this.myForm.get("lastName").value;
     let username = this.myForm.get("username").value;

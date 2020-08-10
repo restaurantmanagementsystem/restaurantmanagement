@@ -1,0 +1,63 @@
+
+
+
+@media screen and (max-width: 1000px) {
+  .p {
+    font-size: 30px;
+  }
+}
+
+
+
+.input-container {
+  display: -ms-flexbox; /* IE10 */
+  display: flex;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.icon {
+  padding: 8px;
+  background-color: coral;
+  color: white;
+  min-width: 50px;
+  text-align: center;
+}
+
+.input-container {
+  display: -ms-flexbox; /* IE10 */
+  display: flex;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+
+.input-field {
+  width: 100%;
+  padding: 10px;
+  outline: none;
+}
+
+  .input-field:focus {
+    border: 2px solid coral;
+  }
+
+/* Set a style for the submit button */
+
+.btn:hover {
+  opacity: 1;
+}
+
+.form-control:focus {
+  color: none;
+  background-color: none;
+  border-color: #ced4da;
+  outline: 0;
+  box-shadow: 0 0 0 0rem rgba(0,123,255,.25);
+}
+
+.custom-control-input:checked ~ .custom-control-label::before {
+  color: #fff;
+  border-color: coral !important;
+  background-color: coral !important;
+}

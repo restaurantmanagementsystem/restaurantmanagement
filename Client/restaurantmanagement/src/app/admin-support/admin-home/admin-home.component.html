@@ -1,0 +1,32 @@
+<header role="banner">
+  <h1>Restaurant Admin Panel</h1>
+  <ul class="utilities">
+    <br/>
+    <li class="users"><a href="#">My Account</a></li>
+    <li class="logout warn"><a [routerLink]="['/']">Log Out</a></li>
+  </ul>
+</header>
+
+<nav role='navigation'>
+  <ul class="main">
+    <li class="fa fa-tachometer dashboard"><a (click)="dashboard()">Dashboard</a></li>
+    <li class="users fa fa-user-plus"><a (click)="manageUser()">Manage Users</a></li>
+    <li class="foodItem fa fa-cutlery"><a (click)="manageFoodItem()">Manage Food Item</a></li>
+    <li class="fa fa-home home"><a [routerLink]="['/']">  Home</a></li>
+
+  </ul>
+</nav>
+
+<main role="main">
+    <div *ngIf="User">
+      <app-add-users></app-add-users>
+    </div>
+
+    <div *ngIf="FoodItem">
+      <app-add-product ></app-add-product>
+    </div>
+
+    <div *ngIf="Dashboard">
+      <app-admin-dashboard></app-admin-dashboard>
+    </div>   
+</main>
