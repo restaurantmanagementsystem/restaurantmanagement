@@ -1,45 +1,63 @@
 const User = require('../models/user');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
+const router = require('express').Router();
+const bcrypt = require('bcryptjs');
 
 class LoginController {
+
     constructor() {
 
-        router.post('/login', async (req, res) => {
-           this.doLogin(req,res);
-        });
+            router.post('/:username', async (req, res) => {
+                this.doLogin(req, res);
+            });
 
-    }
-
-    doLogin(req,res){
-    //check if the username is valid or not.
-    const user = await User.findOne({username: req.body.username});
-        if (!user)
-            return res.status(400).send('User does not exists');
+        }
+       
+    // doing login
+    doLogin(req, res) {
         
+        //const id = req.params.username;
 
-    //check if password is valid or not
-    const validPass = await bcrypt.compare(req.body.password, user.password);
-    if(!validPass)
-    return res.status(400).send('Invalid Password');
+        User.findOne({ id: req.params.username }, function (err, doc) {
+            if (doc) {
+                console.log(id);
+                 res.status(200).send('User email already exists');
+            } else {
+                return res.status(400).send('Username not found');
+            }
 
-    //creating token
-    TOKEN_SECRET=lkdsjffoeinafa;
-    const token = jwt.sign({_id : User._id}, TOKEN_SECRET);
-    res.header('auth-token', token).send(token);
-    
-        if((req.body.role).equals(admin))
-        res.send('logged in Admin');
-    
-        if((req.body.role).equals(manager))
-        res.send('logged in Manager');
 
-        if((req.body.role).equals(waiter))
-        res.send('logged in Waiter');
 
-        if((req.body.role).equals(chef))
-        res.send('logged in Chef');
+
+        // if(User.findOne(id)){
+        //     const pass = req.body.password;
+        //     console.log('Username');
+        //     console.log(id)
+
+        //     if(User.password===pass){
+        //         res.status(200).send('Logged IN')
+        //     }
+        //     else
+        //         res.status(400).send('Password Incorrect')
+        // }
+        // else
+        // res.status(400).send('Username not found');
+        
+        })
     }
+    
 
+    getRouter() {
+        return router;
+    }
 }
+
+//Function which returns single object for all methods
+let self = module.exports = {
+    create: () => {
+        if (!(self && self.loginController)) {
+            self.loginController = new LoginController();
+        }
+        return self.loginController;
+    }
+};
