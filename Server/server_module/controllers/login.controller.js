@@ -1,45 +1,62 @@
 const User = require('../models/user');
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
+const router = require('express').Router();
+
 
 class LoginController {
-    constructor() {
-
-        router.post('/login', async (req, res) => {
-           this.doLogin(req,res);
+    constructor() {   
+        router.post('/', async (req, res) => {
+            this.doLogin(req, res);
         });
-
     }
+    // Adding new user to the database
+        doLogin(req, res){
+            try {
+                User.findOne({
+                    email: req.body.email
+                })
+                    .exec((err, user) => {
+                        if (err) {
+                            res.status(500).send({ message: err });
+                            return;
+                        }
 
-    doLogin(req,res){
-    //check if the username is valid or not.
-    const user = await User.findOne({username: req.body.username});
-        if (!user)
-            return res.status(400).send('User does not exists');
-        
+                        if (!user) {
+                            return res.status(404).send({ message: "User Not found." });
+                        }
 
-    //check if password is valid or not
-    const validPass = await bcrypt.compare(req.body.password, user.password);
-    if(!validPass)
-    return res.status(400).send('Invalid Password');
+                        if (req.body.password !== user.password) {
+                            return res.status(401).send({
+                                message: "Invalid Password!"
+                            });
+                        }
+                      
+                        res.status(200).send({
+                            id: user._id,
+                            email: user.email,
+                            message: "Login Success!"
+                        });
+                    });
+            } catch (e) {
+                console.error('Authenticate => user', e);
+                return res.status(400).json({
+                    error: e.message ? e.message : e
+                });
+            }
+        }      
 
-    //creating token
-    TOKEN_SECRET=lkdsjffoeinafa;
-    const token = jwt.sign({_id : User._id}, TOKEN_SECRET);
-    res.header('auth-token', token).send(token);
-    
-        if((req.body.role).equals(admin))
-        res.send('logged in Admin');
-    
-        if((req.body.role).equals(manager))
-        res.send('logged in Manager');
-
-        if((req.body.role).equals(waiter))
-        res.send('logged in Waiter');
-
-        if((req.body.role).equals(chef))
-        res.send('logged in Chef');
+        getRouter() {
+        return router;
     }
-
 }
+
+//Function which returns single object for all methods
+let self = module.exports = {
+    create: () => {
+        if (!(self && self.createLoginController)) {
+            self.createLoginController = new LoginController();
+        }
+        return self.createLoginController;
+    }
+};
