@@ -5,48 +5,48 @@ const router = require('express').Router();
 
 
 class LoginController {
-    constructor() {   
+    constructor() {
         router.post('/', async (req, res) => {
             this.doLogin(req, res);
         });
     }
     // Adding new user to the database
-        doLogin(req, res){
-            try {
-                User.findOne({
-                    email: req.body.email
-                })
-                    .exec((err, user) => {
-                        if (err) {
-                            res.status(500).send({ message: err });
-                            return;
-                        }
+    doLogin(req, res) {
+        try {
+            User.findOne({
+                email: req.body.email
+            })
+                .exec((err, user) => {
+                    if (err) {
+                        res.status(500).send({ message: err });
+                        return;
+                    }
 
-                        if (!user) {
-                            return res.status(404).send({ message: "User Not found." });
-                        }
+                    if (!user) {
+                        return res.status(404).send({ message: "User Not found." });
+                    }
 
-                        if (req.body.password !== user.password) {
-                            return res.status(401).send({
-                                message: "Invalid Password!"
-                            });
-                        }
-                      
-                        res.status(200).send({
-                            id: user._id,
-                            email: user.email,
-                            message: "Login Success!"
+                    if (req.body.password !== user.password) {
+                        return res.status(401).send({
+                            message: "Invalid Password!"
                         });
-                    });
-            } catch (e) {
-                console.error('Authenticate => user', e);
-                return res.status(400).json({
-                    error: e.message ? e.message : e
-                });
-            }
-        }      
+                    }
 
-        getRouter() {
+                    res.status(200).send({
+                        id: user._id,
+                        email: user.email,
+                        message: "Login Success!"
+                    });
+                });
+        } catch (e) {
+            console.error('Authenticate => user', e);
+            return res.status(400).json({
+                error: e.message ? e.message : e
+            });
+        }
+    }
+
+    getRouter() {
         return router;
     }
 }
