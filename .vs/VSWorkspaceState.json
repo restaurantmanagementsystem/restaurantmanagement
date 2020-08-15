@@ -2,15 +2,15 @@
   "ExpandedNodes": [
     "",
     "\\Client",
-    "\\Client\\restaurantmanagement",
     "\\Client\\restaurantmanagement\\src",
     "\\Client\\restaurantmanagement\\src\\app",
     "\\Client\\restaurantmanagement\\src\\app\\admin-support",
     "\\Client\\restaurantmanagement\\src\\app\\admin-support\\add-product",
     "\\Client\\restaurantmanagement\\src\\app\\admin-support\\add-users",
-    "\\Client\\restaurantmanagement\\src\\app\\admin-support\\admin-dashboard",
-    "\\Client\\restaurantmanagement\\src\\app\\admin-support\\admin-home"
+    "\\Server",
+    "\\Server\\server_module",
+    "\\Server\\server_module\\controllers"
   ],
-  "SelectedNode": "\\Client\\restaurantmanagement\\src\\app\\admin-support\\admin-home\\admin-home.component.css",
+  "SelectedNode": "\\Server\\server_module\\router.js",
   "PreviewInSolutionExplorer": false
 }

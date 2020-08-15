@@ -1,6 +1,9 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 import { FormGroup, FormControl, Validators, FormBuilder } from "@angular/forms";
+import { AppService } from "../../services/app.service";
+import { Login } from '../../models/login';
+
 @Component({
   selector: 'app-admin-login',
   templateUrl: './admin-login.component.html',
@@ -12,11 +15,13 @@ export class AdminLoginComponent implements OnInit {
   iconvisible: boolean = true;
   returnUrl: string;
   router: Router = null;
+  appService: AppService = null;
 
-  constructor(private formBuilder: FormBuilder,
+  constructor(AppService: AppService,private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     router: Router,
   ) {
+    this.appService = AppService;
     this.router = router;
 
     // redirect to home if already logged in   
@@ -63,8 +68,6 @@ export class AdminLoginComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-     this.router.navigate(['/adminHome']);
-
     // stop here if form is invalid
     if (this.loginForm.invalid) {
       return;
@@ -73,27 +76,17 @@ export class AdminLoginComponent implements OnInit {
     let email = this.loginForm.get("username").value;
     let password = this.loginForm.get("password").value;
 
-    //this.authenticationService.login(email, password)
-    //  .pipe(first())
-    //  .subscribe(
-    //    (resp: any) => {
-    //      if (resp) {
-    //        if (this.returnUrl.length > 0)
-    //          this.router.navigate([this.returnUrl]);
-    //        else
-    //          this.router.navigate([resp.home]);
-    //      }
-    //    },
-    //    (error) => {
-    //      this.notification.create(
-    //        'warning',
-    //        'login',
-    //        'Please enter correct credentials',
-    //      );
-    //    },
-    //    () => {
-    //    }
-    //  );
+    let requestData = new Login(email, password);
+
+    this.appService.loginUser(requestData).subscribe(
+      (resp: any) => {
+        let user = resp.user;
+        this.router.navigate([user.home]);
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
 }
