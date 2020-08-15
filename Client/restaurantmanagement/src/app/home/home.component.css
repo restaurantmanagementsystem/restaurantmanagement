@@ -12,10 +12,10 @@
 }
 
 .displayContainer {
-  width:100%;
+  width: 100%;
   height: 860px;
   position: relative;
-  background-color: darkslategrey;
+  background-color: initial;
 }
 
 

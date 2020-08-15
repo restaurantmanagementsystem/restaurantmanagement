@@ -16,6 +16,7 @@ import { NotFoundErrorComponent } from './not-found-error/not-found-error.compon
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdminHomeComponent } from './admin-support/admin-home/admin-home.component';
 import { AdminDashboardComponent } from './admin-support/admin-dashboard/admin-dashboard.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -36,8 +37,7 @@ import { AdminDashboardComponent } from './admin-support/admin-dashboard/admin-d
   imports: [FormsModule, ReactiveFormsModule,
     HttpClientModule,
     BrowserModule,
-    AppRoutingModule
-  ],
+    AppRoutingModule, NgbModule  ],
   providers: [],
   bootstrap: [AppComponent]
 })

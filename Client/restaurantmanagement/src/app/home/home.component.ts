@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class HomeComponent implements OnInit {
   food_items: any[] = [" Chicken Breast ", "  Fresh Grilled Asparagus", "Pork-Stuffed Skins", " Grilled Chicken", " Steak Frites"];
   public menu: {}[] = [];
+  images = [225,102, 1080].map((n) => `https://picsum.photos/id/${n}/1400/600`);
 
   constructor() { }
 
